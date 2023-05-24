@@ -1,0 +1,117 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" ng-app="myApp">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Product Selection</title>-->
+<!--    &lt;!&ndash; Bootstrap CSS &ndash;&gt;-->
+<!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">-->
+<!--</head>-->
+<!--<body ng-controller="ProductController">-->
+<!--<div class="container">-->
+<!--    <h1>Product Selection</h1>-->
+
+<!--    <div ng-repeat="product in products">-->
+<!--        <button class="btn btn-primary" type="button" data-toggle="collapse" ng-attr-data-target="#collapse{{ product.id }}" aria-expanded="false" aria-controls="collapseExample">-->
+<!--            {{ product.name }}-->
+<!--        </button>-->
+
+<!--        <div ng-attr-id="collapse{{ product.id }}" class="collapse">-->
+<!--            <div class="card card-body">-->
+<!--                <div>-->
+<!--                    <label for="quantity">Quantity:</label>-->
+<!--                    <input id="quantity" type="number" ng-model="product.quantity" ng-change="calculateTotalPrice()">-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    <label for="price">Price:</label>-->
+<!--                    <span id="price">{{ product.price }}</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <h3>Total Price: {{ totalPrice }}</h3>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; AngularJS &ndash;&gt;-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>-->
+<!--<script>-->
+<!--    angular.module('myApp', [])-->
+<!--      .controller('ProductController', function ($scope, $http) {-->
+<!--        $scope.products = [];-->
+<!--        $scope.totalPrice = 0;-->
+
+<!--        $http.get('your-backend-api.com/products')-->
+<!--          .then(function (response) {-->
+<!--            $scope.products = response.data;-->
+<!--          })-->
+<!--          .catch(function (error) {-->
+<!--            console.error(error);-->
+<!--          });-->
+
+<!--        $scope.calculateTotalPrice = function () {-->
+<!--          $scope.totalPrice = 0;-->
+<!--          angular.forEach($scope.products, function (product) {-->
+<!--            $scope.totalPrice += product.price * product.quantity;-->
+<!--          });-->
+<!--        };-->
+<!--      });-->
+<!--  </script>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Selection</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+    .product-container {
+      margin-bottom: 20px;
+    }
+
+    .product-header {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body ng-controller="ProductController">
+<div class="container">
+    <h1>Product Selection</h1>
+
+    <div class="product-container" ng-repeat="product in products">
+        <div class="card">
+            <div class="card-header product-header" ng-click="toggleCollapse(product.id)">
+                {{ product.name }}
+            </div>
+            <div id="collapse{{ product.id }}" class="collapse" ng-class="{ 'show': product.collapsed }">
+                <div class="card-body">
+                    <div>
+                        <label for="quantity{{ product.id }}">Quantity:</label>
+                        <input id="quantity{{ product.id }}" type="number" min="0" ng-model="product.quantity" ng-change="calculateTotalPrice()">
+                    </div>
+                    <div>
+                        <label for="price{{ product.id }}">Price:</label>
+                        <span id="price{{ product.id }}">{{ product.price }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h3>Total Price: {{ totalPrice }}</h3>
+
+    <button class="btn btn-primary" ng-click="sendToBackend()">Send to Backend</button>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- AngularJS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
+
+
+
