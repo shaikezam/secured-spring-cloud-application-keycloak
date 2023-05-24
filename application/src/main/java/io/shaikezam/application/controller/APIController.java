@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("lol")
 public class APIController {
-
+ 
     @GetMapping
     public String lol() {
         return "WOW";
