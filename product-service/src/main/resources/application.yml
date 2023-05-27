@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: product-service
+  datasource:
+    url: jdbc:mariadb://mariadb:3306/application
+    username: admin
+    password: admin
+
+server:
+  port: 8002
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://service-discovery:8001/eureka
