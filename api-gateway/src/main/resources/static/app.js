@@ -1,21 +1,15 @@
 angular.module('myApp', [])
   .controller('ProductController', function ($scope, $http) {
-    $scope.products = [
-      {
-        id: 1,
-        name: 'Product 1',
-        price: 10,
-        quantity: 0,
-        collapsed: true
-      },
-      {
-        id: 2,
-        name: 'Product 2',
-        price: 15,
-        quantity: 0,
-        collapsed: true
-      }
-    ];
+      $http.get('/webapi/products')
+              .then(function (response) {
+              $scope.products = response.data;
+                // Handle success response
+                console.log('Data sent to the backend successfully.');
+              })
+              .catch(function (error) {
+                // Handle error response
+                console.error('Error sending data to the backend:', error);
+              });
 
     $scope.totalPrice = 0;
 
@@ -30,7 +24,7 @@ angular.module('myApp', [])
 
     $scope.calculateTotalPrice = function () {
       $scope.totalPrice = $scope.products.reduce(function (total, product) {
-        return total + (product.price * product.quantity);
+        return total + (product.price * (product.quantity || 0));
       }, 0);
     };
 
