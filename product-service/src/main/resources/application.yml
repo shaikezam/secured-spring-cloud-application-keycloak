@@ -2,12 +2,12 @@ spring:
   application:
     name: product-service
   datasource:
-    url: jdbc:mariadb://mariadb:3306/application
+    url: jdbc:mariadb://db:3306/products
     username: admin
     password: admin
 
   flyway:
-    url: jdbc:mariadb://mariadb:3306/application?currentSchema=product
+    url: jdbc:mariadb://db:3306/products?currentSchema=app
     user: admin
     password: admin
 

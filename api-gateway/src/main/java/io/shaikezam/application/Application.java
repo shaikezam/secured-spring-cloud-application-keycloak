@@ -19,6 +19,7 @@ public class Application {
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()
                 .route("product-service", r -> r.path("/webapi/products/**")
+                        .filters(f->f.rewritePath("/webapi/(?<segment>.*)","/api/v1/${segment}"))
                         .uri("lb://product-service"))
                 .build();
     }

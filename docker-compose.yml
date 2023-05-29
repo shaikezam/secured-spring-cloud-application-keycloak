@@ -24,7 +24,7 @@ services:
     networks:
       - product-network
     depends_on:
-      - mariadb
+      - db
 
   order-service:
     container_name: order-service
@@ -32,19 +32,19 @@ services:
     ports:
       - "8003:8003"
     depends_on:
-      - mariadb
+      - db
     networks:
       - product-network
 
-  mariadb:
-    container_name: mariadb
-    image: mariadb
+  db:
+    container_name: db
+    build: db
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: admin
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: admin
-      MYSQL_DATABASE: application
+      MARIADB_ROOT_PASSWORD: admin
+      MARIADB_USER: admin
+      MARIADB_PASSWORD: admin
+      MARIADB_DATABASE: application
     ports:
       - "3306:3306"
     networks:
@@ -57,9 +57,9 @@ services:
     ports:
       - "8004:80"
     environment:
-      PMA_HOST: mariadb
+      PMA_HOST: db
       PMA_PORT: 3306
-      MYSQL_ROOT_PASSWORD: admin
+      MARIADB_ROOT_PASSWORD: admin
     networks:
       - product-network
 
