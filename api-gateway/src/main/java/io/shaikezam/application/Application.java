@@ -21,6 +21,9 @@ public class Application {
                 .route("product-service", r -> r.path("/webapi/products/**")
                         .filters(f->f.rewritePath("/webapi/(?<segment>.*)","/api/v1/${segment}"))
                         .uri("lb://product-service"))
+                .route("order-service", r -> r.path("/webapi/orders/**")
+                        .filters(f->f.rewritePath("/webapi/(?<segment>.*)","/api/v1/${segment}"))
+                        .uri("lb://order-service"))
                 .build();
     }
 
