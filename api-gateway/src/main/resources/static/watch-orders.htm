@@ -5,34 +5,25 @@
     <title>Order Management System</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-    .product-container {
-      margin-bottom: 20px;
-    }
-
-    .product-header {
-      cursor: pointer;
-    }
-  </style>
 </head>
 <body ng-controller="TableController">
 <div class="container">
     <h1><a href="index.htm">Order Management System</a></h1>
     <h2>watch orders</h2>
 
-    <table>
+    <table class="table">
         <thead>
         <tr>
-            <th (click)="sort('id')">ID</th>
-            <th (click)="sort('price')">Price</th>
-            <th>Purchase Timestamp</th>
+            <th>ID</th>
+            <th>Price</th>
+            <th>Purchase Time</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let item of items">
-            <td>{{ item.id }}</td>
-            <td>{{ item.price }}</td>
-            <td>{{ item.purchaseTimestamp | date }}</td>
+        <tr ng-repeat="item in items">
+            <td>{{item.id}}</td>
+            <td>{{item.price}}</td>
+            <td>{{item.purchaseTimestamp}}</td>
         </tr>
         </tbody>
     </table>
