@@ -1,3 +1,3 @@
-Install docker & docker-compose
+Install `Java17`, `Maven`, `Docker` & `docker-compose`
 
-Execute `build.sh`
+Execute `build.sh` and navigate to`localhost:8001/index.htm`
