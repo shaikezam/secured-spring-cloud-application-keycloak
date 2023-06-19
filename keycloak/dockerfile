@@ -1,0 +1,7 @@
+FROM jboss/keycloak:16.1.1
+# Must add json files before import, volume is not mounted yet
+COPY myrealm.json /opt/jboss/keycloak/myrealm.json
+
+CMD ["-b", "0.0.0.0", "-Dkeycloak.import=/opt/jboss/keycloak/myrealm.json"]
+
+
