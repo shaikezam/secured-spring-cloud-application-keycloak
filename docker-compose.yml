@@ -1,61 +1,68 @@
 version: "3.9"
 services:
   api-gateway:
+    image: api-gateway  	
     container_name: api-gateway
     build: api-gateway
     ports:
-      - "8000:8000"
+      - target: 8000
+        published: 8000
+        mode: host
     networks:
       - product-network
+    depends_on:
+      - db
+      - keycloak
 
   service-discovery:
     container_name: service-discovery
+    image: service-discovery  
     build: service-discovery
     ports:
-      - "8001:8001"
+      - target: 8001
+        published: 8001
+        mode: host
     networks:
       - product-network
 
   product-service:
+    image: product-service
     container_name: product-service
     build: product-service
-    ports:
-      - "8002:8002"
     networks:
       - product-network
     depends_on:
       - db
 
   order-service:
+    image: order-service
     container_name: order-service
     build: order-service
-    ports:
-      - "8003:8003"
     depends_on:
       - db
     networks:
       - product-network
 
   db:
+    image: db
     container_name: db
     build: db
     restart: always
-    environment:
-      MARIADB_ROOT_PASSWORD: admin
-      MARIADB_USER: admin
-      MARIADB_PASSWORD: admin
-      MARIADB_DATABASE: application
     ports:
-      - "3306:3306"
+      - target: 3306
+        published: 3306
+        mode: host
     networks:
       - product-network
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin
+    image: pma
+    container_name: pma
     restart: always
     ports:
-      - "8004:80"
+      - target: 80
+        published: 8004
+        mode: host
     environment:
       PMA_HOST: db
       PMA_PORT: 3306
@@ -64,10 +71,12 @@ services:
       - product-network
       
   keycloak:
-    build: keycloak
+    image: keycloak
     container_name: keycloak
     ports:
-      - '8005:8080'
+      - target: 8080
+        published: 8005
+        mode: host
     environment:
       - KEYCLOAK_USER=admin
       - KEYCLOAK_PASSWORD=admin

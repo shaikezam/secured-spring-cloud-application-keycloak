@@ -1,4 +1,13 @@
 FROM jboss/keycloak:16.1.1
+
+ENV KEYCLOAK_USER admin
+ENV KEYCLOAK_PASSWORD admin
+ENV DB_VENDOR mariadb
+ENV DB_ADDR db
+ENV DB_DATABASE keycloak
+ENV DB_USER admin
+ENV DB_PASSWORD admin
+
 # Must add json files before import, volume is not mounted yet
 COPY myrealm.json /opt/jboss/keycloak/myrealm.json
 
